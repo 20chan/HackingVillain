@@ -1,4 +1,4 @@
-﻿namespace HackingVillain
+﻿namespace HackingVillainServer
 {
     partial class Form1
     {
