@@ -41,9 +41,6 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hook">
-      <HintPath>..\..\_Dead\Hook\Hook\bin\Debug\Hook.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -106,6 +103,10 @@
     <ProjectReference Include="..\AwesomeSocket\AwesomeSocket.csproj">
       <Project>{bcc56564-2a4d-4a8d-9b28-1375bce68a27}</Project>
       <Name>AwesomeSocket</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hook\Hook.csproj">
+      <Project>{a964fe92-59fd-4aae-a43a-9eaeb31174a4}</Project>
+      <Name>Hook</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

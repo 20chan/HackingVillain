@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HackingVillainServer", "Hac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeSocket", "AwesomeSocket\AwesomeSocket.csproj", "{BCC56564-2A4D-4A8D-9B28-1375BCE68A27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hook", "..\_Dead\Hook\Hook\Hook.csproj", "{6202A5A7-37A0-4874-A56F-7316C50F13F5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hook", "Hook\Hook.csproj", "{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{BCC56564-2A4D-4A8D-9B28-1375BCE68A27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCC56564-2A4D-4A8D-9B28-1375BCE68A27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCC56564-2A4D-4A8D-9B28-1375BCE68A27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6202A5A7-37A0-4874-A56F-7316C50F13F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6202A5A7-37A0-4874-A56F-7316C50F13F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6202A5A7-37A0-4874-A56F-7316C50F13F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6202A5A7-37A0-4874-A56F-7316C50F13F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
