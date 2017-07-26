@@ -19,5 +19,10 @@ namespace HackingVillainServer
             foreach (var s in strs)
                 listBox1.Items.Add(s);
         }
+
+        private void EventViewer_Shown(object sender, EventArgs e)
+        {
+
+        }
     }
 }

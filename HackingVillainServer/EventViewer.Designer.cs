@@ -49,6 +49,7 @@
             this.Controls.Add(this.listBox1);
             this.Name = "EventViewer";
             this.Text = "EventViewer";
+            this.Shown += new System.EventHandler(this.EventViewer_Shown);
             this.ResumeLayout(false);
 
         }

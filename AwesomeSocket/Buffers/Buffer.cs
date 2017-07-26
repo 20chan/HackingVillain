@@ -6,7 +6,7 @@ namespace AwesomeSockets.Buffers
 {
     public class Buffer
     {
-        private const int DefaultBufferSize = 1024;
+        private const int DefaultBufferSize = 2048;
         private readonly int _bufferSize;
         private readonly byte[] _bytes;
         private int _position;

