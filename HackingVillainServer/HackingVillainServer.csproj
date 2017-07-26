@@ -115,6 +115,10 @@
       <Project>{a964fe92-59fd-4aae-a43a-9eaeb31174a4}</Project>
       <Name>Hook</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NetworkData\NetworkData.csproj">
+      <Project>{b0f279e6-2129-495e-a93f-ee73a09e5509}</Project>
+      <Name>NetworkData</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="쟌.png">

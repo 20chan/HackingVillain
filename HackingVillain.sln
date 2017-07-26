@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AwesomeSocket", "AwesomeSoc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hook", "Hook\Hook.csproj", "{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetworkData", "NetworkData\NetworkData.csproj", "{B0F279E6-2129-495E-A93F-EE73A09E5509}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A964FE92-59FD-4AAE-A43A-9EAEB31174A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0F279E6-2129-495E-A93F-EE73A09E5509}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0F279E6-2129-495E-A93F-EE73A09E5509}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0F279E6-2129-495E-A93F-EE73A09E5509}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0F279E6-2129-495E-A93F-EE73A09E5509}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

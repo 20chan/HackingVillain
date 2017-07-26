@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AwesomeSockets.Buffers;
 using AwesomeSockets.Sockets;
 using AwesomeSockets.Domain.Sockets;
+using NetworkData;
 
 using Buffer = AwesomeSockets.Buffers.Buffer;
 namespace HackingVillain
@@ -52,11 +53,21 @@ namespace HackingVillain
             _client.Close();
         }
 
-        public void Send(string msg)
+        public static void Send(ISocket client, byte[] msg, int dataType)
         {
             Buffer b = Buffer.New();
-            Buffer.Add(b, Encoding.UTF8.GetBytes(msg));
-            _client.SendMessage(b);
+            var datas = Data.SplitToDatas(msg, dataType);
+            foreach (var dd in datas)
+            {
+                Buffer.Add(b, dd.Serialize());
+                Buffer.FinalizeBuffer(b);
+                client.SendMessage(b);
+            }
+        }
+
+        public void Send(string msg)
+        {
+            Send(_client, Encoding.UTF8.GetBytes(msg), 0);
         }
 
         void Listen()
