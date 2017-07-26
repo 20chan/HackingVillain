@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Network">
-      <HintPath>..\..\_Dead\Sonagi\Network\bin\Debug\Network.dll</HintPath>
+    <Reference Include="Hook">
+      <HintPath>..\..\_Dead\Hook\Hook\bin\Debug\Hook.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,8 +54,11 @@
     <Compile Include="Client.Designer.cs">
       <DependentUpon>Client.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hooker.cs" />
+    <Compile Include="Locker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScreenMonitor.cs" />
     <EmbeddedResource Include="Client.resx">
       <DependentUpon>Client.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,6 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AwesomeSocket\AwesomeSocket.csproj">
+      <Project>{bcc56564-2a4d-4a8d-9b28-1375bce68a27}</Project>
+      <Name>AwesomeSocket</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
