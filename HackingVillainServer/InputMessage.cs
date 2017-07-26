@@ -20,7 +20,7 @@ namespace HackingVillainServer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Completed?.Invoke(this.textBox1.Text);
+            Completed?.Invoke(this.textBox1.Text ?? "");
         }
     }
 }
