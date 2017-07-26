@@ -72,7 +72,7 @@ namespace NetworkData
                         bytes.Length - currentSize
                         :DataSize];
 
-                    Buffer.BlockCopy(bytes, i, cur, 0, cur.Length);
+                    Buffer.BlockCopy(bytes, currentSize, cur, 0, cur.Length);
                     Data d = new Data(cur, dataType, true, bytes.Length / DataSize, i);
                     currentSize += cur.Length;
                     result.Add(d);
