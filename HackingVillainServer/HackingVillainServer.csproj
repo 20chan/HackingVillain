@@ -66,6 +66,12 @@
       <DependentUpon>ScreenViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Slave.cs" />
+    <Compile Include="SlaveViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SlaveViewer.Designer.cs">
+      <DependentUpon>SlaveViewer.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EventViewer.resx">
       <DependentUpon>EventViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -83,6 +89,9 @@
     </Compile>
     <EmbeddedResource Include="ScreenViewer.resx">
       <DependentUpon>ScreenViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SlaveViewer.resx">
+      <DependentUpon>SlaveViewer.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

