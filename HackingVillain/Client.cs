@@ -88,7 +88,7 @@ namespace HackingVillain
             }
             else if (data == "Lock Screen")
             {
-                _lock.ShowDialog();
+                _lock.Show();
             }
             else if (data == "UnLock Screen")
             {
