@@ -102,7 +102,11 @@ namespace HackingVillainServer
             if (type == 1) // 프로ㅔㅅ스
             {
                 string processes = Encoding.UTF8.GetString(bytes);
-                EventViewer viewer = new EventViewer(processes.Split('\n').ToList());
+                ProcessViewer viewer = new ProcessViewer(processes.Split('\n').ToList());
+                viewer.TryKill += (name) =>
+                {
+                    Send($"Kill {name}");
+                };
                 viewer.Text = "프로세스 목록";
                 this.Invoke((MethodInvoker)delegate ()
                 {
@@ -224,6 +228,15 @@ namespace HackingVillainServer
             if (listView1.SelectedItems.Count != 1) return;
             SlaveViewer viewer = new SlaveViewer(_clients[listView1.SelectedItems[0].Index]);
             viewer.Show();
+        }
+
+        private void 종료KToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count != 1) return;
+            if(MessageBox.Show("정말로 종료시키겠습니까?", "경고", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                Send("Shutdown");
+            }
         }
     }
 }

@@ -45,6 +45,7 @@
             this.활성화EToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.비활성화DToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.종료KToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +69,7 @@
             this.보기VToolStripMenuItem,
             this.제어CToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(115, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
             // 
             // 보기VToolStripMenuItem
             // 
@@ -77,7 +78,7 @@
             this.프로ㅔㅅ스ToolStripMenuItem,
             this.화면SToolStripMenuItem1});
             this.보기VToolStripMenuItem.Name = "보기VToolStripMenuItem";
-            this.보기VToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.보기VToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.보기VToolStripMenuItem.Text = "보기(&V)";
             // 
             // 키보드KToolStripMenuItem
@@ -105,9 +106,10 @@
             // 
             this.제어CToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.키보드잠금KToolStripMenuItem,
-            this.화면SToolStripMenuItem});
+            this.화면SToolStripMenuItem,
+            this.종료KToolStripMenuItem});
             this.제어CToolStripMenuItem.Name = "제어CToolStripMenuItem";
-            this.제어CToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.제어CToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.제어CToolStripMenuItem.Text = "제어(&C)";
             // 
             // 키보드잠금KToolStripMenuItem
@@ -116,7 +118,7 @@
             this.활성화EToolStripMenuItem,
             this.비활성화DToolStripMenuItem});
             this.키보드잠금KToolStripMenuItem.Name = "키보드잠금KToolStripMenuItem";
-            this.키보드잠금KToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.키보드잠금KToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.키보드잠금KToolStripMenuItem.Text = "키보드(&K)";
             // 
             // 활성화EToolStripMenuItem
@@ -139,7 +141,7 @@
             this.활성화EToolStripMenuItem1,
             this.비활성화DToolStripMenuItem1});
             this.화면SToolStripMenuItem.Name = "화면SToolStripMenuItem";
-            this.화면SToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.화면SToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.화면SToolStripMenuItem.Text = "화면(&S)";
             // 
             // 활성화EToolStripMenuItem1
@@ -161,6 +163,13 @@
             this.timer1.Enabled = true;
             this.timer1.Interval = 3000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // 종료KToolStripMenuItem
+            // 
+            this.종료KToolStripMenuItem.Name = "종료KToolStripMenuItem";
+            this.종료KToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.종료KToolStripMenuItem.Text = "종료(&K)";
+            this.종료KToolStripMenuItem.Click += new System.EventHandler(this.종료KToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -193,6 +202,7 @@
         private System.Windows.Forms.ToolStripMenuItem 프로ㅔㅅ스ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 화면SToolStripMenuItem1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem 종료KToolStripMenuItem;
     }
 }
 

