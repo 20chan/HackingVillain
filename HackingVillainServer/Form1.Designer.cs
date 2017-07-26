@@ -42,6 +42,7 @@
             this.화면SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.활성화EToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.비활성화DToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.화면SToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,15 +64,16 @@
             this.보기VToolStripMenuItem,
             this.제어CToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(115, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
             // 
             // 보기VToolStripMenuItem
             // 
             this.보기VToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.키보드KToolStripMenuItem,
-            this.프로ㅔㅅ스ToolStripMenuItem});
+            this.프로ㅔㅅ스ToolStripMenuItem,
+            this.화면SToolStripMenuItem1});
             this.보기VToolStripMenuItem.Name = "보기VToolStripMenuItem";
-            this.보기VToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.보기VToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.보기VToolStripMenuItem.Text = "보기(&V)";
             // 
             // 키보드KToolStripMenuItem
@@ -143,6 +145,13 @@
             this.비활성화DToolStripMenuItem1.Text = "비활성화(&D)";
             this.비활성화DToolStripMenuItem1.Click += new System.EventHandler(this.비활성화DToolStripMenuItem1_Click);
             // 
+            // 화면SToolStripMenuItem1
+            // 
+            this.화면SToolStripMenuItem1.Name = "화면SToolStripMenuItem1";
+            this.화면SToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.화면SToolStripMenuItem1.Text = "화면(&S)";
+            this.화면SToolStripMenuItem1.Click += new System.EventHandler(this.화면SToolStripMenuItem1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -171,6 +180,7 @@
         private System.Windows.Forms.ToolStripMenuItem 활성화EToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 비활성화DToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 프로ㅔㅅ스ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 화면SToolStripMenuItem1;
     }
 }
 

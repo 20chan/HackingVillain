@@ -31,12 +31,13 @@ namespace HackingVillain
             _hook.Lock();
             TaskManager(false);
             TopMostAlways.SetTopmost(this.Handle);
-
+            /*
             this.Invoke(new MethodInvoker(() =>
             {
                 System.Threading.Thread.Sleep(3000);
                 Fuck();
             }));
+            */
         }
 
         /// <summary>

