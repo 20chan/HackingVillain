@@ -89,13 +89,13 @@ namespace NetworkData
         {
             splited.Sort((d1, d2) => d1.CurrentIndex.CompareTo(d2.CurrentIndex));
 
-            int size = DefaultMaxSize * (splited.Count - 1) + splited.Last().CurrentSize;
+            int size = DataSize * (splited.Count - 1) + splited.Last().CurrentSize;
             byte[] result = new byte[size];
             int index = 0;
             foreach(var s in splited)
             {
                 Buffer.BlockCopy(s._bytes, 0, result, index, s.CurrentSize);
-                index += DefaultMaxSize;
+                index += DataSize;
             }
 
             return result;
