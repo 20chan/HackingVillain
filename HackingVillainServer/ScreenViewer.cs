@@ -16,6 +16,7 @@ namespace HackingVillainServer
         {
             InitializeComponent();
             BackgroundImage = img;
+            this.DoubleBuffered = true;
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
     }

