@@ -28,7 +28,7 @@ namespace HackingVillain
                     while (!_started)
                         Thread.Sleep(500);
                     Send();
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
                 }
             });
             t.Start();
