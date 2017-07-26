@@ -35,6 +35,7 @@
             this.보기VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.키보드KToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.프로ㅔㅅ스ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.화면SToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.제어CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.키보드잠금KToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.활성화EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,7 +43,6 @@
             this.화면SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.활성화EToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.비활성화DToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.화면SToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -53,6 +53,7 @@
             this.columnHeader1});
             this.listView1.ContextMenuStrip = this.contextMenuStrip1;
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView1.Font = new System.Drawing.Font("맑은 고딕", 9F);
             this.listView1.Location = new System.Drawing.Point(0, 0);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(518, 361);
@@ -81,16 +82,23 @@
             // 키보드KToolStripMenuItem
             // 
             this.키보드KToolStripMenuItem.Name = "키보드KToolStripMenuItem";
-            this.키보드KToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.키보드KToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.키보드KToolStripMenuItem.Text = "키보드(&K)";
             this.키보드KToolStripMenuItem.Click += new System.EventHandler(this.키보드KToolStripMenuItem_Click);
             // 
             // 프로ㅔㅅ스ToolStripMenuItem
             // 
             this.프로ㅔㅅ스ToolStripMenuItem.Name = "프로ㅔㅅ스ToolStripMenuItem";
-            this.프로ㅔㅅ스ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.프로ㅔㅅ스ToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.프로ㅔㅅ스ToolStripMenuItem.Text = "프로세스(&P)";
             this.프로ㅔㅅ스ToolStripMenuItem.Click += new System.EventHandler(this.프로세스ToolStripMenuItem_Click);
+            // 
+            // 화면SToolStripMenuItem1
+            // 
+            this.화면SToolStripMenuItem1.Name = "화면SToolStripMenuItem1";
+            this.화면SToolStripMenuItem1.Size = new System.Drawing.Size(137, 22);
+            this.화면SToolStripMenuItem1.Text = "화면(&S)";
+            this.화면SToolStripMenuItem1.Click += new System.EventHandler(this.화면SToolStripMenuItem1_Click);
             // 
             // 제어CToolStripMenuItem
             // 
@@ -107,7 +115,7 @@
             this.활성화EToolStripMenuItem,
             this.비활성화DToolStripMenuItem});
             this.키보드잠금KToolStripMenuItem.Name = "키보드잠금KToolStripMenuItem";
-            this.키보드잠금KToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.키보드잠금KToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.키보드잠금KToolStripMenuItem.Text = "키보드(&K)";
             // 
             // 활성화EToolStripMenuItem
@@ -130,29 +138,22 @@
             this.활성화EToolStripMenuItem1,
             this.비활성화DToolStripMenuItem1});
             this.화면SToolStripMenuItem.Name = "화면SToolStripMenuItem";
-            this.화면SToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.화면SToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.화면SToolStripMenuItem.Text = "화면(&S)";
             // 
             // 활성화EToolStripMenuItem1
             // 
             this.활성화EToolStripMenuItem1.Name = "활성화EToolStripMenuItem1";
-            this.활성화EToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.활성화EToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
             this.활성화EToolStripMenuItem1.Text = "활성화(&E)";
             this.활성화EToolStripMenuItem1.Click += new System.EventHandler(this.활성화EToolStripMenuItem1_Click);
             // 
             // 비활성화DToolStripMenuItem1
             // 
             this.비활성화DToolStripMenuItem1.Name = "비활성화DToolStripMenuItem1";
-            this.비활성화DToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.비활성화DToolStripMenuItem1.Size = new System.Drawing.Size(139, 22);
             this.비활성화DToolStripMenuItem1.Text = "비활성화(&D)";
             this.비활성화DToolStripMenuItem1.Click += new System.EventHandler(this.비활성화DToolStripMenuItem1_Click);
-            // 
-            // 화면SToolStripMenuItem1
-            // 
-            this.화면SToolStripMenuItem1.Name = "화면SToolStripMenuItem1";
-            this.화면SToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.화면SToolStripMenuItem1.Text = "화면(&S)";
-            this.화면SToolStripMenuItem1.Click += new System.EventHandler(this.화면SToolStripMenuItem1_Click);
             // 
             // timer1
             // 
