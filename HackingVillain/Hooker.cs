@@ -37,7 +37,7 @@ namespace HackingVillain
 
         public void Send(string msg)
         {
-            Client.Send(_client, Encoding.UTF8.GetBytes(msg), 2);
+            Client.Send(_client, Encoding.UTF8.GetBytes(msg), 3);
         }
 
         private bool _key_KeyUp(Keys key)
