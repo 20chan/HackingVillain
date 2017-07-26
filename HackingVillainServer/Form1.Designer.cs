@@ -72,7 +72,7 @@
             this.제어CToolStripMenuItem,
             this.전송SToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(115, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 92);
             // 
             // 보기VToolStripMenuItem
             // 
@@ -189,6 +189,7 @@
             this.파일FToolStripMenuItem.Name = "파일FToolStripMenuItem";
             this.파일FToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.파일FToolStripMenuItem.Text = "파일(&F)";
+            this.파일FToolStripMenuItem.Click += new System.EventHandler(this.파일FToolStripMenuItem_Click);
             // 
             // Form1
             // 

