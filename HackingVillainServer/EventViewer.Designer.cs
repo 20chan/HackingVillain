@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EventViewer));
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
@@ -47,8 +48,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(533, 358);
             this.Controls.Add(this.listBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EventViewer";
-            this.Text = "EventViewer";
+            this.Text = "키보드 기록";
             this.Shown += new System.EventHandler(this.EventViewer_Shown);
             this.ResumeLayout(false);
 
